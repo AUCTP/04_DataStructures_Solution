@@ -6,67 +6,44 @@ Option 3 should allow the user to enter the index of a game and delete it
 Option 4 should stop the program
 '''
 
-def getChoice():
-    '''
-    Show the different options to the user and return the user selection
-    '''
-    print('\n')
-    print(30*'-')
+def get_choice():
+    print()
     print('1. Show games')
     print('2. Add game')
     print('3. Delete game')
-    print('4. Stop program')
-    print(30*'-')
-    choice = int(input())
-    print('\n')
+    print('4. Shutdown')
+    choice = int(input('>'))
     return choice
 
+def show_games(games):
+    for index in range(len(games)):
+        game = games[index]
+        print(f'{index}: {game}')
 
-def printGames(games):
-    '''
-    Show the available games in the list
-    '''
-    print("Available games:")
-    for i in range(len(games)):
-        print(f'{i}: {games[i]}')
-
-
-def addGame(games):
-    '''
-    Add a new game to the list and return the new list of games
-    '''
-    game = input('Name of the game: ')
+def add_game(games):
+    game = input("Game: ")
     if game in games:
-        print('You already have this game.')
+        print('You already have this game')
     else:
         games.append(game)
-        print('Success!')
     return games
 
-
-def deleteGame(games):
-    '''
-    Delete a game from the list
-    '''
-    index = int(input('Index of game to delete: '))
-    game = games.pop(index)
-    print(f'Successfully removed {game} from your games.')
+def delete_game(games):
+    index = int(input('Index of the game to remove: '))
+    games.pop(index)
     return games
-
-
 
 videoGames = ["Mario", "Sonic", "Joust", "Zelda"]
 
 while True:
-    choice = getChoice()
+    choice = get_choice()
     if choice == 1:
-        printGames(videoGames)
+        show_games(videoGames)
     elif choice == 2:
-        videoGames = addGame(videoGames)
+        videoGames = add_game(videoGames)
     elif choice == 3:
-        videoGames = deleteGame(videoGames)
+        videoGames = delete_game(videoGames)
     elif choice == 4:
         break
     else:
-        print('Invalid selection. Try again.')
-    print('\n')
+        print('Invalid choice')

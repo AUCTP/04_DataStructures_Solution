@@ -9,32 +9,49 @@ Otherwise output a message saying that they have lost.
 '''
 
 import random
+import time
 
-weapons = ['Flamethrower', 'Bat', 'Knife', 'Gun', 'Taurus', 'Revolver'] # Create list of available weapons
+def spawn_zombie(weapons):
+    weakness = random.choice(weapons)
+    return weakness
 
-zombieWeaknesses = random.choices(weapons, k=int(len(weapons)/2)) # Select a subset of the list as zombie weaknesses (extension to original task)
+def select_weapon(weapons):
+    print('1. Select a random weapon')
+    print('2. Select weapon manually')
+    choice = int(input('>'))
+    if choice == 1:
+        weapon = random.choice(weapons)
+    else:
+        print('Select one of following weapons (by index)')
+        for i in range(len(weapons)):
+            print(f'{i}: {weapons[i]}')
+        weaponIndex = int(input('>'))
+        weapon = weapons[weaponIndex]
 
-print('You encountered a zombie. Get ready to fight!!!')
-print("You have the following weapons available:")
-for i in range(len(weapons)):
-    availableWeapon = weapons[i]
-    print(f'{i}: {availableWeapon}')
+    return weapon
 
-choice = int(input("Press 1 to select a random weapon and 2 to select manual\n"))
+def get_winner(zombie, player):
+    print("\U0001F94A\U0001F94A\U0001F94A Let's get ready to rumble \U0001F94A\U0001F94A\U0001F94A")
+    for i in range(5, -1, -1):
+        print(i)
+        time.sleep(1)
+    if zombie == player:
+        winner = 'player'
+    else:
+        winner = 'zombie'
+    return winner
 
-if choice == 1:
-    weapon = random.choice(weapons)
-elif choice == 2:
-    weaponIndex = int(input("Select the index of a weapon:\n>"))
-    weapon = weapons[weaponIndex]
-else:
-    print("Invalid option")
+def playGame(weapons):
+    zombieWeaknesses = spawn_zombie(weapons)
+    print('You encountered a zombie. Get ready to fight!!!')
+    playerWeapon = select_weapon(weapons)
+    winner = get_winner(zombieWeaknesses, playerWeapon)
+    if winner == 'player':
+        print(f'You destroyed the zombie with your {playerWeapon}')
+    else:
+        print(f"Your {playerWeapon} had no chance against that zombie's {zombieWeaknesses} weakness")
 
-if weapon in zombieWeaknesses:
-    print(f"You choose: {weapon}")
-    print(f"Zombie weaknesses: {zombieWeaknesses}")
-    print("You won")
-else:
-    print(f"You choose: {weapon}")
-    print(f"Zombie weakness: {zombieWeaknesses}")
-    print("You loose")
+
+
+availableWeapons = ['\U0001F52B Gun \U0001F52B', '\U0001F52A Knife \U0001F52A', '\U0001FA93 Axe \U0001FA93', '\U0001F525 Flamethrower \U0001F525']
+playGame(availableWeapons)

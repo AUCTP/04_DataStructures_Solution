@@ -26,14 +26,15 @@ grades = {
     }
 }
 
-subjectCounts = {}
-subjectGrades = {}
 
-for grades in grades.values():
-    for subject in grades.keys():
-        subjectCounts[subject] = subjectCounts.get(subject, 0) + 1
-        subjectGrades[subject] = subjectGrades.get(subject, 0) + grades[subject]
+gradesCount = {}
+gradesTotal = {}
 
-for subject in subjectCounts.keys():
-    averageGrade = subjectGrades[subject]/subjectCounts[subject]
-    print(f'{subject}: {averageGrade}')
+for student in grades.keys():
+    for course in grades[student].keys():
+        gradesCount[course] = gradesCount.get(course,0) + 1
+        gradesTotal[course] = gradesTotal.get(course, 0) + grades[student][course]
+
+for course in gradesCount.keys():
+    avg = gradesTotal[course] / gradesCount[course]
+    print(f'{course}: {avg:.2f}')

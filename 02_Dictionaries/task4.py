@@ -19,7 +19,6 @@ def printMenu():
     print('3. Search contacts')
     print('4. Exit')
     print(10*'-')
-    print('\n')
     choice = int(input())
     return choice
 
